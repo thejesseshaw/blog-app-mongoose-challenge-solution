@@ -113,7 +113,7 @@ describe('Blog API Data', function() {
             return BlogPost.count();
           })
           .then(count => {
-            post.body.should.have.length.of(count);
+            post.body.should.have.lengthOf(count);
           });
       });
   
@@ -134,14 +134,14 @@ describe('Blog API Data', function() {
               blogpost.should.include.keys(
                 'author', 'title', 'content' );
             });
+            console.log(res.body[0]);
             newBlogPosts = res.body[0];
             return BlogPost.findById(newBlogPosts.id);
           })
           .then(blogpost => {
             newBlogPosts.title.should.equal(blogpost.title);
             newBlogPosts.content.should.contain(blogpost.content);
-            newBlogPosts.author.should.equal(blogpost.author);
-
+            newBlogPosts.author.should.equal(`${blogpost.author.firstName} ${blogpost.author.lastName}`);
           });
       });
   });
